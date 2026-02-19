@@ -1,0 +1,50 @@
+/* ── HUD overlay ── */
+.hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--cell-height);
+  display: flex;
+  align-items: center;
+  gap: 1ch;
+  padding: 0 1ch;
+  background: var(--c-bg);
+  border-bottom: 1px solid var(--c-dim);
+  font-size: inherit;
+  z-index: 6;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Terminal shifted down when HUD is active */
+.terminal.hud-active {
+  top: var(--cell-height);
+}
+
+.hud-level {
+  color: var(--c-cyan);
+  flex-shrink: 0;
+}
+
+.hud-objective {
+  color: var(--c-fg);
+  flex: 1;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hud-score {
+  color: var(--c-yellow);
+  flex-shrink: 0;
+}
+
+.hud-timer {
+  color: var(--c-red);
+  flex-shrink: 0;
+}
+
+.hud-timer.warning {
+  animation: blink 0.5s step-end infinite;
+}

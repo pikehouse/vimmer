@@ -1,0 +1,48 @@
+/* ── Malware pulse ── */
+@keyframes pulse-malware {
+  0%, 100% { opacity: 1; text-shadow: 0 0 4px var(--c-magenta); }
+  50% { opacity: 0.6; text-shadow: 0 0 12px var(--c-magenta); }
+}
+
+/* ── Data collection flash ── */
+@keyframes collect-flash {
+  0% { background: rgba(0, 255, 255, 0.4); }
+  100% { background: transparent; }
+}
+
+.cell-collect-flash {
+  animation: collect-flash 0.3s ease-out;
+}
+
+/* ── Typewriter for intro text ── */
+@keyframes typewriter-cursor {
+  0%, 50% { border-right-color: var(--c-green); }
+  51%, 100% { border-right-color: transparent; }
+}
+
+.typewriter {
+  border-right: 2px solid var(--c-green);
+  animation: typewriter-cursor 0.8s step-end infinite;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+/* ── Fade in ── */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fade-in 0.4s ease-out;
+}
+
+/* ── Slide up ── */
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.slide-up {
+  animation: slide-up 0.3s ease-out;
+}

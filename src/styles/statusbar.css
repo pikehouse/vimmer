@@ -1,0 +1,49 @@
+/* ── Vim status bar (bottom row) ── */
+.status-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--cell-height);
+  display: flex;
+  align-items: center;
+  background: var(--c-status-bg);
+  font-size: var(--font-size);
+  font-family: 'Fira Code', monospace;
+  padding: 0 4px;
+  z-index: 3;
+}
+
+.status-mode {
+  color: var(--c-bg);
+  padding: 0 6px;
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.status-mode.mode-normal {
+  background: var(--c-green);
+}
+
+.status-mode.mode-insert {
+  background: var(--c-cyan);
+}
+
+.status-mode.mode-command {
+  background: var(--c-yellow);
+}
+
+.status-buffer {
+  flex: 1;
+  color: var(--c-dim);
+  padding: 0 8px;
+  font-size: 11px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.status-position {
+  color: var(--c-dim);
+  font-size: 11px;
+  padding-right: 4px;
+}

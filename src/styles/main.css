@@ -1,0 +1,38 @@
+:root {
+  --c-bg: #0a0e14;
+  --c-fg: #33ff33;
+  --c-green: #33ff33;
+  --c-bright-green: #66ff66;
+  --c-cyan: #00ffff;
+  --c-magenta: #ff00ff;
+  --c-red: #ff3333;
+  --c-yellow: #ffff33;
+  --c-dim: #336633;
+  --c-cursor: #33ff33;
+  --c-status-bg: #1a2a1a;
+  --c-status-fg: #66ff66;
+  --c-overlay-bg: rgba(10, 14, 20, 0.92);
+
+  --font-size: clamp(12px, 1.4vw, 22px);
+  --cell-width: 1ch;
+  --cell-height: 1.3em;
+}
+
+body {
+  background: var(--c-bg);
+  color: var(--c-fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size);
+}
+
+#app {
+  position: relative;
+  width: 80ch;
+  height: calc(25 * var(--cell-height));
+  max-width: 96vw;
+  max-height: 96vh;
+}

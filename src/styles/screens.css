@@ -1,0 +1,195 @@
+/* ── Shared screen overlay ── */
+.screen-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: var(--c-overlay-bg);
+  z-index: 5;
+  font-family: 'Fira Code', monospace;
+  color: var(--c-fg);
+}
+
+/* ── Title Screen ── */
+.title-screen .title-art {
+  color: var(--c-green);
+  text-shadow: 0 0 10px var(--c-green);
+  font-size: 12px;
+  line-height: 1.2;
+  white-space: pre;
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.title-screen .subtitle {
+  color: var(--c-cyan);
+  font-size: 14px;
+  letter-spacing: 4px;
+  margin-bottom: 48px;
+}
+
+.title-screen .prompt {
+  color: var(--c-dim);
+  font-size: 12px;
+  animation: blink 1.2s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+/* ── Level Select ── */
+.level-select {
+  padding: 24px;
+}
+
+.level-select h2 {
+  color: var(--c-cyan);
+  font-size: 16px;
+  margin-bottom: 24px;
+  text-align: center;
+  letter-spacing: 2px;
+}
+
+.level-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  max-width: 480px;
+}
+
+.level-card {
+  border: 1px solid var(--c-dim);
+  padding: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.level-card:hover {
+  border-color: var(--c-green);
+  box-shadow: 0 0 8px rgba(51, 255, 51, 0.2);
+}
+
+.level-card.locked {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.level-card.locked:hover {
+  border-color: var(--c-dim);
+  box-shadow: none;
+}
+
+.level-card .level-num {
+  font-size: 20px;
+  color: var(--c-cyan);
+  margin-bottom: 4px;
+}
+
+.level-card .level-name {
+  font-size: 10px;
+  color: var(--c-fg);
+  margin-bottom: 8px;
+}
+
+.level-card .stars {
+  color: var(--c-yellow);
+  font-size: 12px;
+}
+
+.level-card .stars .empty {
+  color: var(--c-dim);
+}
+
+.level-select .nav-hint {
+  color: var(--c-dim);
+  font-size: 10px;
+  margin-top: 24px;
+  text-align: center;
+}
+
+/* ── Level Intro ── */
+.level-intro {
+  padding: 32px;
+  max-width: 520px;
+}
+
+.level-intro .mission-header {
+  color: var(--c-red);
+  font-size: 12px;
+  letter-spacing: 3px;
+  margin-bottom: 16px;
+}
+
+.level-intro .mission-name {
+  color: var(--c-cyan);
+  font-size: 18px;
+  margin-bottom: 24px;
+}
+
+.level-intro .story-line {
+  color: var(--c-fg);
+  font-size: 11px;
+  line-height: 1.6;
+  margin-bottom: 8px;
+}
+
+.level-intro .tutorial-hint {
+  color: var(--c-yellow);
+  font-size: 11px;
+  margin-top: 16px;
+  padding: 8px;
+  border-left: 2px solid var(--c-yellow);
+}
+
+.level-intro .start-prompt {
+  color: var(--c-dim);
+  font-size: 11px;
+  margin-top: 32px;
+  animation: blink 1.2s step-end infinite;
+}
+
+/* ── Score Screen ── */
+.score-screen {
+  text-align: center;
+}
+
+.score-screen .result-header {
+  color: var(--c-cyan);
+  font-size: 14px;
+  letter-spacing: 3px;
+  margin-bottom: 24px;
+}
+
+.score-screen .big-stars {
+  font-size: 32px;
+  color: var(--c-yellow);
+  margin-bottom: 16px;
+}
+
+.score-screen .big-stars .empty {
+  color: var(--c-dim);
+}
+
+.score-screen .score-value {
+  font-size: 20px;
+  color: var(--c-bright-green);
+  margin-bottom: 32px;
+}
+
+.score-screen .score-breakdown {
+  color: var(--c-dim);
+  font-size: 11px;
+  line-height: 1.8;
+  margin-bottom: 32px;
+}
+
+.score-screen .continue-prompt {
+  color: var(--c-dim);
+  font-size: 11px;
+  animation: blink 1.2s step-end infinite;
+}

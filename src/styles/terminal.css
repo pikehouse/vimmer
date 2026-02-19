@@ -1,0 +1,97 @@
+.terminal {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: var(--font-size);
+  line-height: var(--cell-height);
+  background: var(--c-bg);
+  overflow: hidden;
+}
+
+.terminal-row {
+  display: flex;
+  height: var(--cell-height);
+  white-space: pre;
+}
+
+.terminal-cell {
+  display: inline-block;
+  width: 1ch;
+  height: var(--cell-height);
+  text-align: center;
+  color: var(--c-fg);
+}
+
+/* ── Cursor ── */
+.cell-cursor {
+  background: var(--c-cursor);
+  color: var(--c-bg);
+}
+
+.cell-cursor-insert {
+  border-left: 2px solid var(--c-cursor);
+  background: transparent;
+  color: var(--c-fg);
+}
+
+/* ── Status bar ── */
+.cell-status {
+  background: var(--c-status-bg);
+  color: var(--c-status-fg);
+}
+
+/* ── Game-specific cell classes ── */
+.cell-firewall {
+  color: var(--c-red);
+  text-shadow: 0 0 4px var(--c-red);
+}
+
+.cell-data-node {
+  color: var(--c-cyan);
+  text-shadow: 0 0 6px var(--c-cyan);
+}
+
+.cell-target {
+  color: var(--c-yellow);
+  background: rgba(255, 255, 51, 0.1);
+}
+
+.cell-blank {
+  color: var(--c-dim);
+}
+
+.cell-malware {
+  color: var(--c-magenta);
+  animation: pulse-malware 0.8s ease-in-out infinite;
+}
+
+.cell-vault {
+  color: var(--c-cyan);
+}
+
+.cell-extraction {
+  color: var(--c-yellow);
+  background: rgba(255, 255, 51, 0.05);
+}
+
+.cell-collected {
+  color: var(--c-bright-green);
+  text-shadow: 0 0 8px var(--c-bright-green);
+}
+
+.cell-dim {
+  color: var(--c-dim);
+}
+
+.cell-bright {
+  color: var(--c-bright-green);
+  text-shadow: 0 0 4px var(--c-bright-green);
+}
+
+.cell-search-match {
+  background: rgba(255, 255, 51, 0.25);
+  color: var(--c-yellow);
+}
