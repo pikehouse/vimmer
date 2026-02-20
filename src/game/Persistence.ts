@@ -5,11 +5,11 @@ const DEFAULT_SAVE: SaveData = {
   version: SAVE_VERSION,
   levels: {
     'level1': { unlocked: true, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
-    'level2': { unlocked: false, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
-    'level3': { unlocked: false, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
-    'level4': { unlocked: false, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
-    'level5': { unlocked: false, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
-    'level6': { unlocked: false, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
+    'level2': { unlocked: true, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
+    'level3': { unlocked: true, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
+    'level4': { unlocked: true, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
+    'level5': { unlocked: true, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
+    'level6': { unlocked: true, subLevelsCompleted: 0, bestScore: 0, bestStars: 0 },
   },
   totalScore: 0,
 };
