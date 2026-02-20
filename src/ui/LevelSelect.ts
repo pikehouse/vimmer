@@ -46,9 +46,9 @@ export class LevelSelect {
              data-idx="${idx}" style="${selected ? 'border-color: var(--c-green); box-shadow: 0 0 8px rgba(51,255,51,0.3);' : ''}">
           <div class="level-num">${String(info.num).padStart(2, '0')}</div>
           <div class="level-name">${info.name}</div>
-          <div style="color: var(--c-dim); font-size: 9px; margin-bottom: 4px;">${info.keys}</div>
+          <div style="color: var(--c-dim); font-size: 0.75em; margin-bottom: 0.25em;">${info.keys}</div>
           <div class="stars">${starStr}</div>
-          ${completed > 0 ? `<div style="color: var(--c-dim); font-size: 9px; margin-top: 4px;">${completed} cleared</div>` : ''}
+          ${completed > 0 ? `<div style="color: var(--c-dim); font-size: 0.75em; margin-top: 0.25em;">${completed} cleared</div>` : ''}
         </div>
       `;
     }).join('');
