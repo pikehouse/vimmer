@@ -43,11 +43,13 @@ export class LevelIntro {
       : '';
 
     this.el.innerHTML = `
-      <div class="mission-header">// INCOMING TRANSMISSION</div>
-      <div class="mission-name">${this.levelName}</div>
-      ${visibleLines}
-      ${hintsHtml}
-      ${prompt}
+      <div class="level-intro-content">
+        <div class="mission-header">// INCOMING TRANSMISSION</div>
+        <div class="mission-name">${this.levelName}</div>
+        ${visibleLines}
+        ${hintsHtml}
+        ${prompt}
+      </div>
     `;
   }
 
