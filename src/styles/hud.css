@@ -48,3 +48,21 @@
 .hud-timer.warning {
   animation: blink 0.5s step-end infinite;
 }
+
+/* ── Mute indicator ── */
+.mute-indicator {
+  position: absolute;
+  bottom: 4px;
+  right: 1ch;
+  font-family: 'Fira Code', monospace;
+  font-size: 10px;
+  color: var(--c-dim);
+  z-index: 10;
+  pointer-events: none;
+  letter-spacing: 1px;
+  transition: color 0.15s;
+}
+
+.mute-indicator.muted {
+  color: var(--c-red);
+}

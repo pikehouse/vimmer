@@ -16,6 +16,7 @@ export class TitleScreen {
       </div>
       <div class="subtitle">S Y S T E M &nbsp; B R E A C H</div>
       <div class="prompt">[PRESS ANY KEY TO INITIATE]</div>
+      <div class="mute-hint">[M] Toggle Sound</div>
     `;
     parent.appendChild(this.el);
   }
