@@ -10,6 +10,7 @@ import { LevelSelect } from '../ui/LevelSelect';
 import { LevelIntro } from '../ui/LevelIntro';
 import { ScoreScreen } from '../ui/ScoreScreen';
 import { HUD } from '../ui/HUD';
+import { AudioManager } from '../audio/AudioManager';
 
 // Import all levels to trigger registration
 import '../levels/level1-firewall/FirewallLevel';
@@ -25,6 +26,7 @@ export class GameManager {
   private terminal: Terminal;
   private gameState: GameState;
   private hud: HUD;
+  private audio: AudioManager;
 
   // Current screen instances
   private titleScreen: TitleScreen | null = null;
@@ -43,6 +45,8 @@ export class GameManager {
     this.terminal = new Terminal(root);
     this.hud.setTerminalEl(this.terminal.getElement());
     this.hud.hide();
+    this.audio = new AudioManager();
+    this.audio.mountIndicator(root);
   }
 
   start(): void {
@@ -176,6 +180,20 @@ export class GameManager {
     // Prevent default for game keys
     if (this.shouldPreventDefault(e)) {
       e.preventDefault();
+    }
+
+    // Start audio on first user interaction (browser autoplay policy)
+    this.audio.ensureStarted();
+
+    // Global mute toggle — skip during gameplay when typing text
+    if (e.key === 'm' || e.key === 'M') {
+      const inTextMode =
+        this.gameState.currentScreen === 'gameplay' &&
+        !this.engine.modeManager.isNormal();
+      if (!inTextMode) {
+        this.audio.toggle();
+        return;
+      }
     }
 
     const key = this.normalizeKey(e);
