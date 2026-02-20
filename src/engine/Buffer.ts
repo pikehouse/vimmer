@@ -86,17 +86,26 @@ export class Buffer {
     return prev;
   }
 
+  moveToFirstNonBlank(): Position {
+    const prev = { ...this.cursor };
+    const line = this.currentLine;
+    let col = 0;
+    while (col < line.length && (line[col] === ' ' || line[col] === '\t')) col++;
+    this.cursor.col = col < line.length ? col : 0;
+    return prev;
+  }
+
   moveToTop(): Position {
     const prev = { ...this.cursor };
     this.cursor.row = 0;
-    this.cursor.col = 0;
+    this.moveToFirstNonBlank();
     return prev;
   }
 
   moveToBottom(): Position {
     const prev = { ...this.cursor };
     this.cursor.row = this.lineCount - 1;
-    this.cursor.col = 0;
+    this.moveToFirstNonBlank();
     return prev;
   }
 
@@ -107,8 +116,12 @@ export class Buffer {
     const line = this.currentLine;
     let col = this.cursor.col;
 
-    // Skip current word chars
-    while (col < line.length && !isWordBoundary(line, col)) col++;
+    // Skip past current word or non-word sequence based on char class
+    if (col < line.length && /\w/.test(line[col])) {
+      while (col < line.length && /\w/.test(line[col])) col++;
+    } else if (col < line.length && line[col] !== ' ') {
+      while (col < line.length && !/\w/.test(line[col]) && line[col] !== ' ') col++;
+    }
     // Skip whitespace
     while (col < line.length && line[col] === ' ') col++;
 
@@ -130,22 +143,42 @@ export class Buffer {
 
   wordBackward(): Position {
     const prev = { ...this.cursor };
-    const line = this.currentLine;
+    let row = this.cursor.row;
+    let line = this.lines[row];
     let col = this.cursor.col;
 
-    if (col === 0 && this.cursor.row > 0) {
-      this.cursor.row--;
-      this.cursor.col = Math.max(0, this.currentLine.length - 1);
+    // Move back one position
+    col--;
+
+    // If before line start, go to previous line
+    if (col < 0) {
+      if (row > 0) {
+        row--;
+        line = this.lines[row];
+        col = line.length - 1;
+      } else {
+        this.cursor.col = 0;
+        return prev;
+      }
+    }
+
+    // Skip whitespace backwards
+    while (col > 0 && line[col] === ' ') col--;
+    if (col === 0 && line[col] === ' ') {
+      // Entire prefix is whitespace — stay at 0
+      this.cursor.row = row;
+      this.cursor.col = 0;
       return prev;
     }
 
-    // Move back one
-    if (col > 0) col--;
-    // Skip whitespace backwards
-    while (col > 0 && line[col] === ' ') col--;
-    // Skip word chars backwards
-    while (col > 0 && !isWordBoundary(line, col - 1)) col--;
+    // Skip backwards through same char class to find word start
+    if (/\w/.test(line[col])) {
+      while (col > 0 && /\w/.test(line[col - 1])) col--;
+    } else {
+      while (col > 0 && !/\w/.test(line[col - 1]) && line[col - 1] !== ' ') col--;
+    }
 
+    this.cursor.row = row;
     this.cursor.col = col;
     return prev;
   }
@@ -191,10 +224,12 @@ export class Buffer {
     const deleted = this.lines[this.cursor.row];
     if (this.lineCount === 1) {
       this.lines[0] = '';
+      this.cursor.col = 0;
     } else {
       this.lines.splice(this.cursor.row, 1);
+      this.clampCursor();
+      this.moveToFirstNonBlank();
     }
-    this.clampCursor();
     return deleted;
   }
 
@@ -203,9 +238,13 @@ export class Buffer {
     const startCol = this.cursor.col;
     let endCol = startCol;
 
-    // Delete word chars
-    while (endCol < line.length && !isWordBoundary(line, endCol)) endCol++;
-    // Also delete trailing whitespace
+    // Skip past current word or non-word sequence based on char class
+    if (endCol < line.length && /\w/.test(line[endCol])) {
+      while (endCol < line.length && /\w/.test(line[endCol])) endCol++;
+    } else if (endCol < line.length && line[endCol] !== ' ') {
+      while (endCol < line.length && !/\w/.test(line[endCol]) && line[endCol] !== ' ') endCol++;
+    }
+    // Also delete trailing whitespace (dw includes trailing space)
     while (endCol < line.length && line[endCol] === ' ') endCol++;
 
     const deleted = line.slice(startCol, endCol);
@@ -219,8 +258,12 @@ export class Buffer {
     const startCol = this.cursor.col;
     let endCol = startCol;
 
-    // Delete word chars (don't delete trailing space for change)
-    while (endCol < line.length && !isWordBoundary(line, endCol)) endCol++;
+    // cw acts like ce in vim — delete to end of word, no trailing space
+    if (endCol < line.length && /\w/.test(line[endCol])) {
+      while (endCol < line.length && /\w/.test(line[endCol])) endCol++;
+    } else if (endCol < line.length && line[endCol] !== ' ') {
+      while (endCol < line.length && !/\w/.test(line[endCol]) && line[endCol] !== ' ') endCol++;
+    }
 
     const deleted = line.slice(startCol, endCol);
     this.lines[this.cursor.row] = line.slice(0, startCol) + line.slice(endCol);
@@ -285,7 +328,15 @@ export class Buffer {
     const line = this.currentLine;
     const startCol = this.cursor.col;
     let endCol = startCol;
-    while (endCol < line.length && !isWordBoundary(line, endCol)) endCol++;
+
+    // yw uses w motion — skip word then trailing whitespace
+    if (endCol < line.length && /\w/.test(line[endCol])) {
+      while (endCol < line.length && /\w/.test(line[endCol])) endCol++;
+    } else if (endCol < line.length && line[endCol] !== ' ') {
+      while (endCol < line.length && !/\w/.test(line[endCol]) && line[endCol] !== ' ') endCol++;
+    }
+    while (endCol < line.length && line[endCol] === ' ') endCol++;
+
     return line.slice(startCol, endCol);
   }
 

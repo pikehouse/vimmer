@@ -106,7 +106,7 @@ export class VimEngine {
         this.emit(this.makeEvent('mode_change', prevCursor));
         return;
       case 'I':
-        this.buffer.moveToLineStart();
+        this.buffer.moveToFirstNonBlank();
         this.modeManager.switchTo('INSERT');
         this.emit(this.makeEvent('mode_change', prevCursor));
         return;
